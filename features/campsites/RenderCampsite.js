@@ -56,13 +56,13 @@ const RenderCampsite = (props) => {
     if (campsite) {
         return (
             <Animatable.View
-                animation='fadeInDown'
+                animation='fadeInDownBig'
                 duration={2000}
                 delay={1000}
                 ref={view}
                 {...panResponder.panHandlers}
             >
-                <Card containerStyle={{ padding: 0 }}>
+                <Card containerStyle={styles.cardContainer}>
                     <Card.Image source={{ uri: baseUrl + campsite.image }}>
                         <View style={{ justifyContent: 'center', flex: 1 }}>
                             <Text style={styles.cardText}>{campsite.name}</Text>
@@ -99,6 +99,11 @@ const RenderCampsite = (props) => {
 };
 
 const styles = StyleSheet.create({
+    cardContainer: {
+        padding: 0,
+        margin: 0,
+        marginBottom: 20
+    },
     cardRow: {
         alignItems: 'center',
         justifyContent: 'center',

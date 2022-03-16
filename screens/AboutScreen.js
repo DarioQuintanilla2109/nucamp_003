@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { Avatar, Card, ListItem } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -26,18 +26,6 @@ function Mission() {
 
 const AboutScreen = () => {
     const partners = useSelector((state) => state.partners);
-
-    const renderPartner = ({ item }) => {
-        return (
-            <ListItem>
-                <Avatar rounded source={{ uri: baseUrl + item.image }} />
-                <ListItem.Content>
-                    <ListItem.Title>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                </ListItem.Content>
-            </ListItem>
-        );
-    };
 
     if (partners.isLoading) {
         return (
@@ -80,11 +68,20 @@ const AboutScreen = () => {
                 <Card>
                     <Card.Title>Community Partners</Card.Title>
                     <Card.Divider />
-                    <FlatList
-                        data={partners.partnersArray}
-                        renderItem={renderPartner}
-                        keyExtractor={(item) => item.id.toString()}
-                    />
+                    {partners.partnersArray.map((partner, index) => (
+                        <ListItem key={index}>
+                            <Avatar
+                                rounded
+                                source={{ uri: baseUrl + partner.image }}
+                            />
+                            <ListItem.Content>
+                                <ListItem.Title>{partner.name}</ListItem.Title>
+                                <ListItem.Subtitle>
+                                    {partner.description}
+                                </ListItem.Subtitle>
+                            </ListItem.Content>
+                        </ListItem>
+                    ))}
                 </Card>
             </Animatable.View>
         </ScrollView>
